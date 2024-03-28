@@ -1,0 +1,22 @@
+{
+  "name": "word-guess-bot",
+  "version": "1.0.0",
+  "description": "discord bot to play word guess game with users",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "nodemon index"
+  },
+  "author": "krishnakantha",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^1.7.0",
+    "@discordjs/rest": "^2.2.0",
+    "discord-api-types": "^0.37.76",
+    "discord.js": "^13.8.1",
+    "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
