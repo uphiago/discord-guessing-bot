@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { checkGameStarted, getWordForGroup, deleteEntry } = require("../datastore/store");
+const { checkGameStarted, getWordForGroup, deleteEntry } = require("../../datastore/store");
+const embedBuilder = require('../../datastore/embedBuilder');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,6 +15,12 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         const userWord = interaction.options.getString('word');
+
+        if (userWord.length > 500) {
+            const guessSizeErrorEmbed = embedBuilder.guessSizeErrorEmbed();
+            await interaction.editReply({ embeds: [guessSizeErrorEmbed] });
+            return;
+        }
 
         if (!checkGameStarted(interaction.guildId)) {
             await interaction.editReply("The game hasn't started yet.");

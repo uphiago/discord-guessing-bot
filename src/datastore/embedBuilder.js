@@ -67,7 +67,7 @@ const embedBuilder = {
         return new MessageEmbed()
         .setColor('#0099ff')
         .setTitle('Word Gessing Bot')
-        .setDescription('You need to pick a word! Try: $startgame <word>')
+        .setDescription('You need to pick a word/phrase! Try: $startgame <word>')
         .setFooter({ text: 'Enjoy it!' })
         .setTimestamp();
     },
@@ -78,6 +78,15 @@ const embedBuilder = {
         .setTitle('Game Started!')
         .setDescription(`The members now can try to guess the word: ${word}`)
         .setFooter({ text: 'Enjoy it!' })
+        .setTimestamp();
+    },
+
+    guessSizeErrorEmbed: () => {
+        return new MessageEmbed()
+        .setColor('#FF5555')
+        .setTitle('Guess Too Long')
+        .setDescription('Your guess exceeds the maximum size limit of 500 characters! Please, try a shorter word.')
+        .setFooter({ text: 'Please, try again with a shorter word!' })
         .setTimestamp();
     },
 

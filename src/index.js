@@ -1,12 +1,11 @@
 const  discord = require("discord.js")
-const env = require("dotenv")
-const { startGame } = require("./bot_functions/startGame.js")
-const { checkGuessedWord } = require("./bot_functions/guessCommand.js")
-const { deleteEntry, isGameActive } = require("./datastore/store.js");
+const { startGame } = require("./commands/admin/startGame.js")
+const { checkGuessedWord } = require("./commands/game/guessCommand.js")
+const { deleteEntry } = require("./datastore/store.js");
+const { configureWarnChannel } = require("./commands/admin/warnRoom.js");
+const guessCommand = require("./commands/game/guessSlash.js");
 const embedBuilder = require("./datastore/embedBuilder.js");
-const { configureWarnChannel } = require("./datastore/warnRoom.js");
-const guessCommand = require("./bot_functions/guessSlash.js");
-env.config()
+require("dotenv").config()
 
 const client = new discord.Client( { intents: ["DIRECT_MESSAGES","GUILD_MESSAGES","GUILDS"] } )
 const validCommands = ['help', 'startgame', 'guess', 'endgame', 'warnroom'];
@@ -15,13 +14,26 @@ client.on("ready",() => {
     console.log("Bot up and running")
 })
 
+process.on('unhandledRejection', error => {
+    console.error('unhandledRejection:', error);
+});
+process.on('uncaughtException', error => {
+    console.error('uncaughtException:', error);
+});
+
+
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
+    
+    if (!interaction.guildId) {
+        await interaction.reply("Desculpe, mas eu não suporto comandos via Mensagem Direta.");
+        return;
+    }
 
     const { commandName } = interaction;
 
     if (commandName === 'guess') {
-        const userWord = interaction.options.getString('palavra');
+        const userWord = interaction.options.getString('word');
         await guessCommand.execute(interaction);
     }
 });

@@ -1,4 +1,4 @@
-const embedBuilder = require("./embedBuilder");
+const embedBuilder = require("../../datastore/embedBuilder.js");
 
 let guildConfigs = {};
 
@@ -9,9 +9,9 @@ const setWarnChannel = (guildId, channelId) => {
     guildConfigs[guildId].warnChannel = channelId;
 };
 
-const getWarnChannel = (guildId) => {
-    return guildConfigs[guildId] ? guildConfigs[guildId].warnChannel : null;
-};
+// const getWarnChannel = (guildId) => {
+//     return guildConfigs[guildId] ? guildConfigs[guildId].warnChannel : null;
+// };
 
 const verifyWarnChannel = async (msg) => {
     const warnChannelId = getWarnChannel(msg.guildId);
@@ -50,5 +50,5 @@ const configureWarnChannel = async (msg, args) => {
     setWarnChannel(msg.guildId, channelId);
     await msg.reply({ embeds: [embedBuilder.warnSuccessEmbed(channelId)] });
 };
-
-module.exports = { setWarnChannel, getWarnChannel, verifyWarnChannel, configureWarnChannel };
+//getWarnChannel,
+module.exports = { setWarnChannel, verifyWarnChannel, configureWarnChannel };

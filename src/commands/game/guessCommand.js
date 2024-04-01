@@ -1,5 +1,5 @@
-const { checkGameStarted, getWordForGroup, deleteEntry } = require("../datastore/store")
-const embedBuilder = require('../datastore/embedBuilder');
+const { checkGameStarted, getWordForGroup, deleteEntry } = require("../../datastore/store")
+const embedBuilder = require('../../datastore/embedBuilder');
 
 const checkGuessedWord = async (msg, userWord) => {
     if (!userWord || userWord.length === 0) {

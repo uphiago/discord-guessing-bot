@@ -25,15 +25,14 @@ const checkGameStarted = (gid) => {
     }
 }
 
-const isGameActive = (guildId) => {
-    return db[guildId] ? true : false;
-};
+// const isGameActive = (guildId) => {
+//     return db[guildId] ? true : false;
+// };
 
 module.exports = {
     addNewEntry,
     getWordLength,
     getWordForGroup,
     checkGameStarted,
-    deleteEntry,
-    isGameActive
+    deleteEntry
 }
