@@ -52,12 +52,13 @@ const embedBuilder = {
             .setTitle('Word Gessing Bot')
             .setDescription('How the commands work?')
             .addFields(
-                { name: '$startgame <word>', value: 'Starts a new game. **Admins.**', inline: false },
-                { name: '$guess <word>', value: 'Try to guess the word. **Admins.**', inline: false },
-                { name: '$endgame', value: 'Finish the game. **Admins.**', inline: false },
-                { name: '$help', value: 'Open settings help. **Admins .**', inline: false },
-                { name: '$warnroom', value: 'Set warn channel $warnroom channelId. **Admins.**', inline: false },
-                { name: '/guess <word>', value: 'Try to guess the word. **Players.** (this slash only works after deploy on server)', inline: false }
+                { name: '$startgame <word>', value: 'Starts a new game.', inline: false },
+                //{ name: '$guess <word>', value: 'Try to guess the word.', inline: false },
+                { name: '$endgame <word>', value: 'Finish the game.', inline: false },
+                { name: '$help', value: 'Open settings help.', inline: false },
+                { name: '$running', value: 'Show all games running.', inline: false },
+                { name: '$winners <word>', value: 'Show the winners.', inline: false },
+                { name: '/guess <word>', value: 'Try to guess the word. **Players.**', inline: false }
             )
             .setFooter({ text: 'Enjoy it!' })
             .setTimestamp();
@@ -67,7 +68,7 @@ const embedBuilder = {
         return new MessageEmbed()
         .setColor('#0099ff')
         .setTitle('Word Gessing Bot')
-        .setDescription('You need to pick a word! Try: $startgame <word>')
+        .setDescription('You need to pick a word/phrase! Try: $startgame <word>')
         .setFooter({ text: 'Enjoy it!' })
         .setTimestamp();
     },
@@ -78,6 +79,15 @@ const embedBuilder = {
         .setTitle('Game Started!')
         .setDescription(`The members now can try to guess the word: ${word}`)
         .setFooter({ text: 'Enjoy it!' })
+        .setTimestamp();
+    },
+
+    guessSizeErrorEmbed: () => {
+        return new MessageEmbed()
+        .setColor('#FF5555')
+        .setTitle('Guess Too Long')
+        .setDescription('Your guess exceeds the maximum size limit of 500 characters! Please, try a shorter word.')
+        .setFooter({ text: 'Please, try again with a shorter word!' })
         .setTimestamp();
     },
 
