@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription('Guess the word!')
 		.addStringOption(option =>
 			option.setName('word')
-				.setDescription('The word you think is correct')
+				.setDescription('Which word do you think is the right one?')
 				.setRequired(true)),
 	async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });

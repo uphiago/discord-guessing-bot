@@ -61,11 +61,8 @@ client.on("messageCreate", async (msg) => {
             case "startgame":
                 startGame(msg, args); 
                 break;
-            // case "guess":
-            //     checkGuessedWord(msg, args.join(" "));
-            //     break;
             case "winners":
-                const word = args.join(' '); // Junta os argumentos de volta em uma string
+                const word = args.join(' ');
                 showWinners(msg, word);
                 break;
             case "endgame":

@@ -12,11 +12,6 @@ const startGame = async (msg, args) => {
     const word = matches[2];
     const winnersLimit = parseInt(matches[3], 10);
 
-    if (!addNewGame(msg.guild.id, word, winnersLimit)) {
-        await msg.reply("This word is already being used in an active game on this server.");
-        return;
-    }
-
     if (word.length > 500) {
         await msg.reply("The word/phrase is too long. Please try again with fewer than 500 characters.");
         return;
@@ -24,6 +19,11 @@ const startGame = async (msg, args) => {
 
     if (isNaN(winnersLimit) || winnersLimit < 1 || winnersLimit > 100) {
         await msg.reply("Please provide a valid number of winners (between 1 and 100).");
+        return;
+    }
+
+    if (!addNewGame(msg.guild.id, word, winnersLimit)) {
+        await msg.reply("This word is already being used in an active game on this server. Run $running to see more.");
         return;
     }
 
