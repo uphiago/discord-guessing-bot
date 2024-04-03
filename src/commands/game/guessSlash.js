@@ -27,7 +27,7 @@ module.exports = {
             return;
         }
 
-        let outputMessage = "Sorry, that's not correct. Try again!"; // Mensagem padrão por defeito
+        let outputMessage = "Sorry, that's not correct. Try again!";
 
         games.forEach(game => {
             if (game.word === userWord) {
@@ -40,7 +40,7 @@ module.exports = {
                     case "limit_reached":
                         outputMessage = "This guess has already reached the maximum number of winners.";
                         break;
-                    case "already_won": // Lida com o caso de já ter acertado antes.
+                    case "already_won":
                         outputMessage = `You have already guessed the word correctly, ${interaction.user.username}!`;
                         break;
                     case "not_found":

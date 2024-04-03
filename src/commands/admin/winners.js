@@ -5,16 +5,15 @@ const showWinners = async (msg, word) => {
     const game = games.find(game => game.word.toLowerCase() === word.toLowerCase());
 
     if (!game) {
-        await msg.reply("Não há jogos ativos ou concluídos com essa palavra.");
+        await msg.reply("There are no active or completed games with that word.");
         return;
     }
 
     if (game.winners.length > 0) {
-        // Mapeia cada ID de usuário para uma string de menção de usuário utilizando a sintaxe <@id>
         const winnersList = game.winners.map(id => `<@${id}>`).join(', ');
-        await msg.reply(`Os ganhadores para a palavra "${word}" são: ${winnersList}`);
+        await msg.reply(`The winners for the word "${word}" are: ${winnersList}`);
     } else {
-        await msg.reply(`Ainda não há ganhadores para a palavra "${word}".`);
+        await msg.reply(`There are no winners for the word yet "${word}".`);
     }
 };
 

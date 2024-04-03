@@ -1,32 +1,29 @@
 const { deleteEntry } = require("../../datastore/store");
 const embedBuilder = require('../../datastore/embedBuilder');
 
-// Definindo `wordToEnd` como uma função assíncrona
 async function wordToEnd(msg) {
     const contentArray = msg.content.split(" ");
     const wordToEnd = contentArray.slice(1).join(" ");
 
     if (!wordToEnd) {
-        await msg.reply("Por favor, forneça a palavra do jogo que deseja terminar.");
+        await msg.reply("Please provide the game word you wish to end.");
         return;
     }
 
     const removedGame = deleteEntry(msg.guildId, wordToEnd);
 
     if (removedGame) {
-        // Construa uma mensagem mostrando os ganhadores antes de enviar
-        let winnerMessage = "Não houve ganhadores para este jogo.";
+        let winnerMessage = "There were no winners for this game.";
         
         if (removedGame.winners && removedGame.winners.length > 0) {
             const winnersList = removedGame.winners.map(id => `<@${id}>`).join(', ');
-            winnerMessage = `Os ganhadores são: ${winnersList}`;
+            winnerMessage = `The winners are: ${winnersList}`;
         }
 
-        const endGameEmbed = embedBuilder.endGameEmbed(); // Este embed pode incluir informações básicas do jogo
-        // Você pode querer personalizar o embed para incluir a `winnerMessage` ou enviar separadamente:
+        const endGameEmbed = embedBuilder.endGameEmbed();
         await msg.reply({ embeds: [endGameEmbed], content: winnerMessage });
     } else {
-        await msg.reply("Não foi possível encontrar um jogo com a palavra especificada.");
+        await msg.reply("Could not find a game with the specified word.");
     }
 }
 

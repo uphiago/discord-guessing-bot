@@ -5,7 +5,7 @@ const startGame = async (msg, args) => {
     const matches = msg.content.match(/^(\$startgame\s+")(.+)"\s+(\d+)$/);
 
     if (!matches || matches.length < 4) {
-        await msg.reply("Formato do comando incorreto. Use: $startgame \"palavra ou frase\" número_de_ganhadores");
+        await msg.reply("Incorrect command format. Use: $startgame \"word or phrase\" number_of_winners");
         return;
     }
 
@@ -13,26 +13,24 @@ const startGame = async (msg, args) => {
     const winnersLimit = parseInt(matches[3], 10);
 
     if (!addNewGame(msg.guild.id, word, winnersLimit)) {
-        await msg.reply("Essa palavra já está sendo usada em um jogo ativo neste servidor.");
+        await msg.reply("This word is already being used in an active game on this server.");
         return;
     }
 
     if (word.length > 500) {
-        await msg.reply("A palavra/frase é longa demais. Por favor, tente novamente com menos de 500 caracteres.");
+        await msg.reply("The word/phrase is too long. Please try again with fewer than 500 characters.");
         return;
     }
 
     if (isNaN(winnersLimit) || winnersLimit < 1 || winnersLimit > 100) {
-        await msg.reply("Por favor, forneça um número válido de ganhadores (entre 1 e 100).");
+        await msg.reply("Please provide a valid number of winners (between 1 and 100).");
         return;
     }
 
     try {
-        // The game has been added successfully at this point; prepare and send the embed.
         const gameStartEmbed = embedBuilder.gameStartEmbed(word, winnersLimit);
         await msg.channel.send({ embeds: [gameStartEmbed] });
     } catch(error) {
-        // Catch block for catching and handling any errors that occur during the reply or embed sending process.
         await msg.reply(error.message);
     }
 };
