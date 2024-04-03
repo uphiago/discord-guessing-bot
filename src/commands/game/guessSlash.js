@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { checkGameStarted, getWordForGroup, deleteEntry } = require("../../datastore/store");
+const { getRunningGames, deleteEntry, recordWinner } = require("../../datastore/store");
 const embedBuilder = require('../../datastore/embedBuilder');
 
 module.exports = {
@@ -11,7 +11,6 @@ module.exports = {
 				.setDescription('The word you think is correct')
 				.setRequired(true)),
 	async execute(interaction) {
-
         await interaction.deferReply({ ephemeral: true });
 
         const userWord = interaction.options.getString('word');
@@ -22,31 +21,38 @@ module.exports = {
             return;
         }
 
-        if (!checkGameStarted(interaction.guildId)) {
+        const games = getRunningGames(interaction.guildId);
+        if (games.length === 0) {
             await interaction.editReply("The game hasn't started yet.");
             return;
         }
 
-        const botWord = getWordForGroup(interaction.guildId);
-        const replyList = [];
-        let flag = false;
+        let outputMessage = "Sorry, that's not correct. Try again!"; // Mensagem padrão por defeito
 
-        for (let i = 0; i < userWord.length; i++) {
-            if (i < botWord.length && userWord[i] === botWord[i]) {
-                replyList.push(userWord[i]);
-            } else {
-                flag = true;
-                replyList.push("-");
+        games.forEach(game => {
+            if (game.word === userWord) {
+                const result = recordWinner(interaction.guildId, interaction.user.id, game.gameId);
+                
+                switch (result) {
+                    case "success":
+                        outputMessage = `Congratulations! ${interaction.user.username} got the word right.`;
+                        break;
+                    case "limit_reached":
+                        outputMessage = "This guess has already reached the maximum number of winners.";
+                        break;
+                    case "already_won": // Lida com o caso de já ter acertado antes.
+                        outputMessage = `You have already guessed the word correctly, ${interaction.user.username}!`;
+                        break;
+                    case "not_found":
+                        outputMessage = "Game not found.";
+                        break;
+                    default:
+                        outputMessage = "An unexpected error occurred.";
+                        break;
+                }
             }
-        }
+        });
 
-        if (!flag && botWord.length === userWord.length) {
-            await interaction.editReply(`Congratulations! ${interaction.user.username} got the word right. (${botWord})`);
-            deleteEntry(interaction.guildId);
-        } else if (botWord.length !== userWord.length) {
-            await interaction.editReply(`The size of the guessed word is incorrect. Please guess a word with ${botWord.length} letters.`);
-        } else {
-            await interaction.editReply(`${userWord} -> ${replyList.join("")}`);
-        }
+        await interaction.editReply(outputMessage);
     },
 };

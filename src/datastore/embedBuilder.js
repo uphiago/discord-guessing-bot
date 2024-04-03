@@ -52,12 +52,13 @@ const embedBuilder = {
             .setTitle('Word Gessing Bot')
             .setDescription('How the commands work?')
             .addFields(
-                { name: '$startgame <word>', value: 'Starts a new game. **Admins.**', inline: false },
-                { name: '$guess <word>', value: 'Try to guess the word. **Admins.**', inline: false },
-                { name: '$endgame', value: 'Finish the game. **Admins.**', inline: false },
-                { name: '$help', value: 'Open settings help. **Admins .**', inline: false },
-                { name: '$warnroom', value: 'Set warn channel $warnroom channelId. **Admins.**', inline: false },
-                { name: '/guess <word>', value: 'Try to guess the word. **Players.** (this slash only works after deploy on server)', inline: false }
+                { name: '$startgame <word>', value: 'Starts a new game.', inline: false },
+                //{ name: '$guess <word>', value: 'Try to guess the word.', inline: false },
+                { name: '$endgame <word>', value: 'Finish the game.', inline: false },
+                { name: '$help', value: 'Open settings help.', inline: false },
+                { name: '$running', value: 'Show all games running.', inline: false },
+                { name: '$winners <word>', value: 'Show the winners.', inline: false },
+                { name: '/guess <word>', value: 'Try to guess the word. **Players.**', inline: false }
             )
             .setFooter({ text: 'Enjoy it!' })
             .setTimestamp();
