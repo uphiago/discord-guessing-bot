@@ -53,7 +53,6 @@ const embedBuilder = {
             .setDescription('How the commands work?')
             .addFields(
                 { name: '$startgame <word>', value: 'Starts a new game.', inline: false },
-                //{ name: '$guess <word>', value: 'Try to guess the word.', inline: false },
                 { name: '$endgame <word>', value: 'Finish the game.', inline: false },
                 { name: '$help', value: 'Open settings help.', inline: false },
                 { name: '$running', value: 'Show all games running.', inline: false },
@@ -62,24 +61,6 @@ const embedBuilder = {
             )
             .setFooter({ text: 'Enjoy it!' })
             .setTimestamp();
-    },
-
-    wordErrorEmbed: () => {
-        return new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Word Gessing Bot')
-        .setDescription('You need to pick a word/phrase! Try: $startgame <word>')
-        .setFooter({ text: 'Enjoy it!' })
-        .setTimestamp();
-    },
-
-    gameStartEmbed: (word) => {
-        return new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Game Started!')
-        .setDescription(`The members now can try to guess the word: ${word}`)
-        .setFooter({ text: 'Enjoy it!' })
-        .setTimestamp();
     },
 
     guessSizeErrorEmbed: () => {
@@ -91,21 +72,13 @@ const embedBuilder = {
         .setTimestamp();
     },
 
-    warnStartEmbed: () => {
+    gameStartEmbed: (word) => {
         return new MessageEmbed()
         .setColor('#0099ff')
-        .setTitle('Game Started!!!')
-        .setDescription(`Try to guess the word:`)
+        .setTitle('Game Started!')
+        .setDescription(`The members now can try to guess the word: ${word}`)
         .setFooter({ text: 'Enjoy it!' })
         .setTimestamp();
-    },
-
-    tryGuessEmbed: () => {
-        return new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Game Started!!!')
-        .setDescription(`You need to use $guess <word>`)
-        .setFooter({ text: 'Enjoy it!' })
     },
 
     endGameEmbed: () => {
@@ -125,57 +98,6 @@ const embedBuilder = {
         .setFooter({ text: 'Enjoy it!' })
         .setTimestamp();
     },
-
-    warnSuccessEmbed: (channelId) => {
-        return new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Word Gessing Bot')
-        .setDescription(`The warn channel as been set to <#${channelId}>`)
-        .setFooter({ text: 'Enjoy it!' })
-        .setTimestamp();
-    },
-
-    guessInactiveEmbed: () => {
-        return new MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Word Gessing Bot')
-        .setDescription(`No game running!`)
-        .setFooter({ text: 'Enjoy it!' })
-        .setTimestamp();
-    },
-
-    guessResultEmbed: (result, userWord, correctWord, replyList) => {
-        let embed = new MessageEmbed()
-            .setTitle('Word Guessing Bot');
-        
-        switch(result) {
-            case 'correct':
-                embed.setColor('#00C800');
-                embed.setDescription(`Congrats! You guessed the correct word: ${correctWord}`);
-                break;
-            case 'incorrect':
-                embed.setColor('#FF5555');
-                embed.setDescription(`Guess: ${userWord} -> ${replyList.join("")}`)
-                     .setFooter({ text: 'Try again!' });
-                break;
-            case 'lengthError':
-                embed.setColor('#FF5555');
-                embed.setDescription(`The guessed word length is incorrect. Please guess a word with ${correctWord.length} letters.`);
-                break;
-            case 'noGame':
-                embed.setColor('#FF5555');
-                embed.setDescription(`No game running! Please ask admin to $startgame`);
-                break;
-            default:
-                embed.setColor('#FF5555');
-                embed.setDescription(`Error! Try running $guess <word>`);
-        }
-        
-        return embed;
-    },
-    
-
-
 };
 
 module.exports = embedBuilder;
