@@ -8,7 +8,7 @@
     "start": "node index",
     "test": "nodemon index"
   },
-  "author": "krishnakantha",
+  "author": "krishnakantha, uphiago",
   "license": "ISC",
   "dependencies": {
     "@discordjs/builders": "^1.7.0",
