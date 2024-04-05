@@ -1,7 +1,7 @@
 import embedBuilder from "../../datastore/embedBuilder.js";
 import { addNewGame } from "../../datastore/store.js";
 
-const startGame = async (msg, args) => {
+const startGame = async (msg) => {
     const matches = msg.content.match(/^(\$startgame\s+")(.+)"\s+(\d+)$/);
 
     if (!matches || matches.length < 4) {
