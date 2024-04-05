@@ -1,12 +1,23 @@
-const  discord = require("discord.js")
-const { startGame } = require("./commands/admin/startGame.js")
-const { wordToEnd } = require("./commands/admin/endGame.js")
-const { checkGuessedWord } = require("./commands/game/guessCommand.js")
-const { listRunningGames } = require("./commands/admin/listRunningGames.js");
-const guessCommand = require("./commands/game/guessSlash.js");
-const embedBuilder = require("./datastore/embedBuilder.js");
-const { showWinners } = require("./commands/admin/winners.js");
-require("dotenv").config()
+import discord from "discord.js";
+import dotenv from 'dotenv';
+import { startGame } from "./commands/admin/startGame.js";
+import { listRunningGames } from "./commands/admin/listRunningGames.js";
+import { showWinners } from "./commands/admin/winners.js";
+import { wordToEnd } from "./commands/admin/endGame.js"
+import guessCommand from "./commands/game/guessSlash.js";
+import embedBuilder from "./datastore/embedBuilder.js";
+
+dotenv.config();
+
+//const  discord = require("discord.js")
+//const { startGame } = require("./commands/admin/startGame.js")
+//const { wordToEnd } = require("./commands/admin/endGame.js")
+//const { listRunningGames } = require("./commands/admin/listRunningGames.js");
+// const guessCommand = require("./commands/game/guessSlash.js");
+// const embedBuilder = require("./datastore/embedBuilder.js");
+//const { showWinners } = require("./commands/admin/winners.js");
+// require("dotenv").config()
+
 
 const client = new discord.Client( { intents: ["DIRECT_MESSAGES","GUILD_MESSAGES","GUILDS"] } )
 const validCommands = ['help', 'startgame', 'endgame', 'running', 'winners'];

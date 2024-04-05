@@ -1,5 +1,5 @@
-const { getRunningGames } = require('../../datastore/store');
-const { MessageEmbed } = require('discord.js');
+import { getRunningGames } from '../../datastore/store.js';
+import { MessageEmbed } from 'discord.js';
 
 const listRunningGames = async (msg) => {
     const runningGames = getRunningGames(msg.guild.id);
@@ -24,4 +24,4 @@ const listRunningGames = async (msg) => {
     await msg.channel.send({ embeds: [embed] });
 };
 
-module.exports = { listRunningGames };
+export { listRunningGames };

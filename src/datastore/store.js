@@ -62,7 +62,7 @@ const deleteEntry = (guildId, word) => {
     return null;
 };
 
-module.exports = {
+export {
     addNewGame,
     getRunningGames,
     checkGameStarted,

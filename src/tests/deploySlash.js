@@ -1,8 +1,8 @@
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const { clientId, token } = require('./config.json');
-const fs = require('fs');
-const path = require('path');
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v9';
+import { clientId, token } from './config.json';
+import fs from 'fs';
+import path from 'path';
 
 const commands = [];
 const commandsPath = path.join(__dirname, '..', '/bot_functions');

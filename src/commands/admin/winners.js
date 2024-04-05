@@ -1,5 +1,5 @@
-const embedBuilder = require("../../datastore/embedBuilder");
-const { getRunningGames } = require('../../datastore/store');
+import embedBuilder from "../../datastore/embedBuilder.js";
+import { getRunningGames } from '../../datastore/store.js';
 
 const showWinners = async (msg, word) => {
     const games = getRunningGames(msg.guild.id);
@@ -30,4 +30,4 @@ const showWinners = async (msg, word) => {
     }
 };
 
-module.exports = { showWinners };
+export { showWinners };
