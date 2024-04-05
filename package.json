@@ -4,12 +4,10 @@
   "description": "discord bot to play word guess game with users",
   "main": "index.js",
   "type": "module",
-  
   "scripts": {
     "start": "node index",
     "test": "nodemon index"
   },
-  
   "author": "krishnakantha",
   "license": "ISC",
   "dependencies": {
@@ -20,6 +18,9 @@
     "dotenv": "^16.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/eslint-parser": "^7.24.1",
+    "eslint": "^8.57.0",
     "nodemon": "^2.0.18"
   }
 }

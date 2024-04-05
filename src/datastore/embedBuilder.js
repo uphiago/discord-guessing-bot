@@ -63,7 +63,7 @@ const embedBuilder = {
             .setTimestamp();
     },
 
-    successGuessEmbed: (username, word) => {
+    successGuessEmbed: (username) => {
         return new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Correct Guess!')
