@@ -1,8 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getRunningGames, recordWinner } = require("../../datastore/store");
-const embedBuilder = require('../../datastore/embedBuilder');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { getRunningGames, recordWinner } from "../../datastore/store.js";
+import embedBuilder from '../../datastore/embedBuilder.js';
 
-module.exports = {
+export default {
 	data: new SlashCommandBuilder()
 		.setName('guess')
 		.setDescription('Guess the word!')
@@ -27,7 +27,8 @@ module.exports = {
             return;
         }
 
-        let outputMessage = "Sorry, that's not correct. Try again!";
+        let outputMessage = null;
+        let replyEmbed = null;
 
         games.forEach(game => {
             if (game.word === userWord) {
@@ -36,28 +37,31 @@ module.exports = {
                 switch (result) {
                     case "success":
                         replyEmbed = embedBuilder.successGuessEmbed(interaction.user.username, game.word);
-                        outputMessage = `Congratulations! ${interaction.user.username} got the word right.`;
                         break;
                     case "limit_reached":
                         replyEmbed = embedBuilder.limitGuessEmbed(interaction.user.username, game.word);
-                        outputMessage = "This guess has already reached the maximum number of winners.";
                         break;
                     case "already_won":
                         replyEmbed = embedBuilder.winnerGuessEmbed(interaction.user.username, game.word);
-                        outputMessage = `You have already guessed the word correctly, ${interaction.user.username}!`;
                         break;
                     case "not_found":
                         replyEmbed = embedBuilder.notfoundGuessEmbed(interaction.user.username, game.word);
-                        outputMessage = "Game not found.";
                         break;
                     default:
-                        replyEmbed = embedBuilder.successGuessEmbed(interaction.user.username, game.word);
-                        outputMessage = "An unexpected error occurred.";
+                        replyEmbed = embedBuilder.errorGuessEmbed(interaction.user.username, game.word);
                         break;
                 }
             }
+            else if (game.word !== userWord) {
+                replyEmbed = embedBuilder.failGuessEmbed(interaction.user.username, game.word);
+            }
         });
 
-        await interaction.editReply(outputMessage);
+        if (replyEmbed) {
+            await interaction.editReply({ content: outputMessage, embeds: [replyEmbed] });
+        } else {
+            await interaction.editReply({ content: outputMessage });
+        }
     },
 };
+

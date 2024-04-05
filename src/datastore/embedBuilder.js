@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+import { MessageEmbed } from 'discord.js';
 
 const embedBuilder = {
 
@@ -67,38 +67,65 @@ const embedBuilder = {
         return new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('Correct Guess!')
-            .setDescription(`Congratulations, ${username}! You guessed the correct word: "${word}".`)
+            .setDescription(`Congratulations, ${username}! You guessed the correct word!`)
             .setFooter({ text: 'Keep playing!' })
             .setTimestamp();
     },
 
-    limitGuessEmbed: (username, word) => {
+    limitGuessEmbed: () => {
         return new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('This guess has already reached the maximum number of winners!')
-            .setDescription(`-------`)
+            .setDescription("Give us a second")
             .setFooter({ text: 'Keep playing!' })
             .setTimestamp();
     },
     
-    winnerGuessEmbed: (username, word) => {
+    winnerGuessEmbed: (username) => {
         return new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('You have already guessed the word correctly!')
-            .setDescription(`Congratulations, ${interaction.user.username}!`)
+            .setDescription(`Congratulations, ${username}!`)
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+
+    notfoundGuessEmbed: () => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('There is no game active!')
+            .setDescription("Give us a second")
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+
+    errorGuessEmbed: () => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('Something strange happened!')
+            .setDescription("Call the COPS!")
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+
+    failGuessEmbed: () => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('Miss!')
+            .setDescription("Try again!")
             .setFooter({ text: 'Keep playing!' })
             .setTimestamp();
     },
 
 
-    genericResponseEmbed: (title, description, color = '#0099ff') => {
-        return new MessageEmbed()
-            .setColor(color) // Cor padrão azul, mas pode ser especificada
-            .setTitle(title)
-            .setDescription(description)
-            .setFooter({ text: 'Try again!' })
-            .setTimestamp();
-    },
+    // genericResponseEmbed: (title, description, color = '#0099ff') => {
+    //     return new MessageEmbed()
+    //         .setColor(color)
+    //         .setTitle(title)
+    //         .setDescription(description)
+    //         .setFooter({ text: 'Try again!' })
+    //         .setTimestamp();
+    // },
 
     //////////////////////////////////////////////////////////
 
@@ -140,4 +167,4 @@ const embedBuilder = {
     },
 };
 
-module.exports = embedBuilder;
+export default embedBuilder;

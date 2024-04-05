@@ -1,5 +1,5 @@
-const embedBuilder = require("../../datastore/embedBuilder");
-const { addNewGame } = require("../../datastore/store");
+import embedBuilder from "../../datastore/embedBuilder.js";
+import { addNewGame } from "../../datastore/store.js";
 
 const startGame = async (msg, args) => {
     const matches = msg.content.match(/^(\$startgame\s+")(.+)"\s+(\d+)$/);
@@ -35,4 +35,4 @@ const startGame = async (msg, args) => {
     }
 };
 
-module.exports = { startGame };
+export { startGame };

@@ -1,5 +1,5 @@
-const { deleteEntry } = require("../../datastore/store");
-const embedBuilder = require('../../datastore/embedBuilder');
+import { deleteEntry } from "../../datastore/store.js";
+import embedBuilder from '../../datastore/embedBuilder.js';
 
 async function wordToEnd(msg) {
     const contentArray = msg.content.split(" ");
@@ -27,4 +27,4 @@ async function wordToEnd(msg) {
     }
 }
 
-module.exports = { wordToEnd };
+export { wordToEnd };
