@@ -9,16 +9,6 @@ import embedBuilder from "./datastore/embedBuilder.js";
 
 dotenv.config();
 
-//const  discord = require("discord.js")
-//const { startGame } = require("./commands/admin/startGame.js")
-//const { wordToEnd } = require("./commands/admin/endGame.js")
-//const { listRunningGames } = require("./commands/admin/listRunningGames.js");
-// const guessCommand = require("./commands/game/guessSlash.js");
-// const embedBuilder = require("./datastore/embedBuilder.js");
-//const { showWinners } = require("./commands/admin/winners.js");
-// require("dotenv").config()
-
-
 const client = new discord.Client( { intents: ["DIRECT_MESSAGES","GUILD_MESSAGES","GUILDS"] } )
 const validCommands = ['help', 'startgame', 'endgame', 'running', 'winners'];
 
@@ -65,26 +55,32 @@ client.on("messageCreate", async (msg) => {
     }
 
         switch (command) {
-            case "help":
+            case "help": {
                 const helpEmbed = embedBuilder.helpEmbed();
                 await msg.reply({ embeds: [helpEmbed] });
                 break;
-            case "startgame":
+            }
+            case "startgame": {
                 startGame(msg, args); 
                 break;
-            case "winners":
+            }
+            case "winners": {
                 const word = args.join(' ');
                 showWinners(msg, word);
                 break;
-            case "endgame":
+            }
+            case "endgame": {
                 wordToEnd(msg);
                 break;
-            case "running":
+            }
+            case "running": {
                 listRunningGames(msg);
                 break;
-            default:
+            }
+            default: {
                 const commandErrorEmbed = embedBuilder.commandErrorEmbed();
                 await msg.reply({ embeds: [commandErrorEmbed] });
+            }
         }
     });
 
