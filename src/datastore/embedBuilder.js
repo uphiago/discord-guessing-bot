@@ -63,6 +63,46 @@ const embedBuilder = {
             .setTimestamp();
     },
 
+    successGuessEmbed: (username, word) => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('Correct Guess!')
+            .setDescription(`Congratulations, ${username}! You guessed the correct word: "${word}".`)
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+
+    limitGuessEmbed: (username, word) => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('This guess has already reached the maximum number of winners!')
+            .setDescription(`-------`)
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+    
+    winnerGuessEmbed: (username, word) => {
+        return new MessageEmbed()
+            .setColor('#00FF00')
+            .setTitle('You have already guessed the word correctly!')
+            .setDescription(`Congratulations, ${interaction.user.username}!`)
+            .setFooter({ text: 'Keep playing!' })
+            .setTimestamp();
+    },
+
+
+    genericResponseEmbed: (title, description, color = '#0099ff') => {
+        return new MessageEmbed()
+            .setColor(color) // Cor padrão azul, mas pode ser especificada
+            .setTitle(title)
+            .setDescription(description)
+            .setFooter({ text: 'Try again!' })
+            .setTimestamp();
+    },
+
+    //////////////////////////////////////////////////////////
+
+
     guessSizeErrorEmbed: () => {
         return new MessageEmbed()
         .setColor('#FF5555')

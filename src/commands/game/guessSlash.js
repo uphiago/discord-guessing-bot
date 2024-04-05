@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { getRunningGames, deleteEntry, recordWinner } = require("../../datastore/store");
+const { getRunningGames, recordWinner } = require("../../datastore/store");
 const embedBuilder = require('../../datastore/embedBuilder');
 
 module.exports = {
@@ -35,18 +35,23 @@ module.exports = {
                 
                 switch (result) {
                     case "success":
+                        replyEmbed = embedBuilder.successGuessEmbed(interaction.user.username, game.word);
                         outputMessage = `Congratulations! ${interaction.user.username} got the word right.`;
                         break;
                     case "limit_reached":
+                        replyEmbed = embedBuilder.limitGuessEmbed(interaction.user.username, game.word);
                         outputMessage = "This guess has already reached the maximum number of winners.";
                         break;
                     case "already_won":
+                        replyEmbed = embedBuilder.winnerGuessEmbed(interaction.user.username, game.word);
                         outputMessage = `You have already guessed the word correctly, ${interaction.user.username}!`;
                         break;
                     case "not_found":
+                        replyEmbed = embedBuilder.notfoundGuessEmbed(interaction.user.username, game.word);
                         outputMessage = "Game not found.";
                         break;
                     default:
+                        replyEmbed = embedBuilder.successGuessEmbed(interaction.user.username, game.word);
                         outputMessage = "An unexpected error occurred.";
                         break;
                 }

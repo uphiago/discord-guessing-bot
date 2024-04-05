@@ -1,7 +1,6 @@
 const  discord = require("discord.js")
 const { startGame } = require("./commands/admin/startGame.js")
 const { wordToEnd } = require("./commands/admin/endGame.js")
-const { checkGuessedWord } = require("./commands/game/guessCommand.js")
 const { listRunningGames } = require("./commands/admin/listRunningGames.js");
 const guessCommand = require("./commands/game/guessSlash.js");
 const embedBuilder = require("./datastore/embedBuilder.js");
