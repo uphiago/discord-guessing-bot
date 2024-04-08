@@ -1,5 +1,5 @@
 import { getRunningGames } from '../../datastore/store.js';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 const listRunningGames = async (msg) => {
     const runningGames = getRunningGames(msg.guild.id);
@@ -9,7 +9,7 @@ const listRunningGames = async (msg) => {
         return;
     }
 
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
         .setTitle("Games Running")
         .setColor("#0099ff");
 

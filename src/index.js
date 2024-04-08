@@ -1,4 +1,4 @@
-import discord from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from 'dotenv';
 import { startGame } from "./commands/admin/startGame.js";
 import { listRunningGames } from "./commands/admin/listRunningGames.js";
@@ -9,12 +9,19 @@ import embedBuilder from "./datastore/embedBuilder.js";
 
 dotenv.config();
 
-const client = new discord.Client( { intents: ["DIRECT_MESSAGES","GUILD_MESSAGES","GUILDS"] } )
+const client = new Client({
+    intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+    ],
+})
 const validCommands = ['help', 'startgame', 'endgame', 'running', 'winners'];
 
-client.on("ready",() => {
-    console.log("Bot up and running")
-})
+client.on("ready", () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+});
 
 process.on('unhandledRejection', error => {
     console.error('unhandledRejection:', error);
@@ -25,6 +32,7 @@ process.on('uncaughtException', error => {
 
 
 client.on('interactionCreate', async interaction => {
+
     if (!interaction.isCommand()) return;
     
     if (!interaction.guildId) {

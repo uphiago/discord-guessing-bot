@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index",
-    "test": "nodemon index"
+    "start": "node src/index"
   },
-  
+
   "author": "krishnakantha, uphiago",
   "license": "ISC",
   "dependencies": {
