@@ -1,9 +1,9 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 const embedBuilder = {
 
     customErrorEmbed: (title, description, fields = []) => {
-        let embed = new MessageEmbed()
+        let embed = new EmbedBuilder()
             .setColor('#FF5555')
             .setTitle(title)
             .setDescription(description)
@@ -47,7 +47,7 @@ const embedBuilder = {
     },
 
     helpEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('Word Gessing Bot')
             .setDescription('How the commands work?')
@@ -64,7 +64,7 @@ const embedBuilder = {
     },
 
     successGuessEmbed: (username) => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('Correct Guess!')
             .setDescription(`Congratulations, ${username}! You guessed the correct word!`)
@@ -73,7 +73,7 @@ const embedBuilder = {
     },
 
     limitGuessEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('This guess has already reached the maximum number of winners!')
             .setDescription("Give us a second")
@@ -82,7 +82,7 @@ const embedBuilder = {
     },
     
     winnerGuessEmbed: (username) => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('You have already guessed the word correctly!')
             .setDescription(`Congratulations, ${username}!`)
@@ -91,7 +91,7 @@ const embedBuilder = {
     },
 
     notfoundGuessEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('There is no game active!')
             .setDescription("Give us a second")
@@ -100,7 +100,7 @@ const embedBuilder = {
     },
 
     errorGuessEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('Something strange happened!')
             .setDescription("Call the COPS!")
@@ -109,7 +109,7 @@ const embedBuilder = {
     },
 
     failGuessEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setColor('#00FF00')
             .setTitle('Miss!')
             .setDescription("Try again!")
@@ -131,7 +131,7 @@ const embedBuilder = {
 
 
     guessSizeErrorEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
         .setColor('#FF5555')
         .setTitle('Guess Too Long')
         .setDescription('Your guess exceeds the maximum size limit of 500 characters! Please, try a shorter word.')
@@ -140,7 +140,7 @@ const embedBuilder = {
     },
 
     gameStartEmbed: (word) => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Game Started!')
         .setDescription(`The members now can try to guess the word: ${word}`)
@@ -149,7 +149,7 @@ const embedBuilder = {
     },
 
     endGameEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Word Gessing Bot')
         .setDescription(`The Game Has Ended!`)
@@ -158,7 +158,7 @@ const embedBuilder = {
     },
 
     commandErrorEmbed: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('Word Gessing Bot')
         .setDescription(`I don't know this command, Try again!`)

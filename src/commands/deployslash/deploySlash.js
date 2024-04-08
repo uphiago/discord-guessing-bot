@@ -16,12 +16,15 @@ const commands = [];
 const commandsPath = path.join(__dirname, '..', '..', 'commands', 'game');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-
+console.log('BOT_ID:', clientId ? 'true' : 'false');
+console.log('TOKEN:', token ? 'true' : 'false');
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = await import(filePath);
-    if ('data' in command) {
-        commands.push(command.data.toJSON());
+    if ('default' in command && 'data' in command.default) {
+        commands.push(command.default.data.toJSON());
+    } else {
+        console.log(`Erro ao carregar comando de: ${filePath}`);
     }
 }
 
@@ -30,13 +33,13 @@ const rest = new REST({ version: '9' }).setToken(token);
 (async () => {
     try {
         console.log('Starting the process of registering application commands (/) globally.');
-
-        await rest.put(
+        console.log('Comandos que serão registrados:', commands);
+        const data = await rest.put(
             Routes.applicationCommands(clientId),
             { body: commands },
         );
-
         console.log('Application commands (/) registered globally successfully.');
+        console.log('Comandos registrados com sucesso:', data);
     } catch (error) {
         console.error(error);
     }
