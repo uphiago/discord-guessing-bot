@@ -1,11 +1,13 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import dotenv from 'dotenv';
 import { startGame } from "./commands/admin/startGame.js";
-import { listRunningGames } from "./commands/admin/listRunningGames.js";
+import { listRunningGames } from "./commands/admin/listRunning.js";
 import { showWinners } from "./commands/admin/winners.js";
-import { wordToEnd } from "./commands/admin/endGame.js"
+import wordToEnd from "./commands/admin/endGame.js"
 import guessCommand from "./commands/game/guessSlash.js";
 import embedBuilder from "./datastore/embedBuilder.js";
+import { displayTopPlayers } from "./datastore/userRanking.js";
+import { updatePointsForTry, updatePointsForWin } from "./datastore/config.js";
 
 dotenv.config();
 
@@ -17,7 +19,7 @@ const client = new Client({
 		GatewayIntentBits.GuildMembers,
     ],
 })
-const validCommands = ['help', 'startgame', 'endgame', 'running', 'winners'];
+const validCommands = ['help', 'startgame', 'endgame', 'running', 'winners', 'guesstry', 'guesswin', 'ranking'];
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -83,6 +85,22 @@ client.on("messageCreate", async (msg) => {
             }
             case "running": {
                 listRunningGames(msg);
+                break;
+            }
+            case "guesstry": {
+                const newTryPoints = parseInt(args[0], 10);
+                updatePointsForTry(newTryPoints);
+                msg.reply(`Pontos por tentativa atualizados para: ${newTryPoints}`);
+                break;
+            }
+            case "guesswin": {
+                const newWinPoints = parseInt(args[0], 10);
+                updatePointsForWin(newWinPoints);
+                msg.reply(`Pontos por vitória atualizados para: ${newWinPoints}`);
+                break;
+            }
+            case "ranking": {
+                displayTopPlayers(msg.guild.id, msg);
                 break;
             }
             default: {
