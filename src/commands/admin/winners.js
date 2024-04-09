@@ -3,7 +3,7 @@ import { getRunningGames } from '../../datastore/store.js';
 
 const showWinners = async (msg, word) => {
     const games = getRunningGames(msg.guild.id);
-    const game = games.find(game => game.word.toLowerCase() === word.toLowerCase());
+    const game = games.find(game => game.word === word);
 
     if (!game) {
         const embed = embedBuilder.customErrorEmbed(

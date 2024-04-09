@@ -5,7 +5,7 @@ const addNewGame = (guildId, word, winnersLimit) => {
     if (!games[guildId]) {
         games[guildId] = [];
     } else {
-        const isWordUsed = games[guildId].some(game => game.word.toLowerCase() === word.toLowerCase());
+        const isWordUsed = games[guildId].some(game => game.word === word);
         if (isWordUsed) {
             return false;
         }

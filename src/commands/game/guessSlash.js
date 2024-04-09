@@ -15,7 +15,7 @@ export default {
         await interaction.deferReply({ ephemeral: true });
         const { guesstry, guesswin } = getConfig(); 
 
-        const userWord = interaction.options.getString('word').toLowerCase();
+        const userWord = interaction.options.getString('word');
 
         if (userWord.length > 500) {
             const guessSizeErrorEmbed = embedBuilder.guessSizeErrorEmbed();
@@ -33,7 +33,7 @@ export default {
         let guessedCorrectly = false;
 
         for (const game of games) {
-            if (game.word.toLowerCase() === userWord) {
+            if (game.word === userWord) {
                 guessedCorrectly = true;
                 const result = recordWinner(interaction.guildId, interaction.user.id, game.gameId);
                 
