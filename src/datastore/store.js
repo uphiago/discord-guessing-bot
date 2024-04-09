@@ -1,4 +1,5 @@
 let games = {};
+let ranking = {};
 
 const addNewGame = (guildId, word, winnersLimit) => {
     if (!games[guildId]) {
@@ -62,10 +63,34 @@ const deleteEntry = (guildId, word) => {
     return null;
 };
 
+
+const addPointsForTry = (guildId, userId, points) => {
+    if (!ranking[guildId]) {
+        ranking[guildId] = {};
+    }
+    if (!ranking[guildId][userId]) {
+        ranking[guildId][userId] = 0;
+    }
+    ranking[guildId][userId] += points;
+};
+
+const addPointsForWin = (guildId, userId, points) => {
+    addPointsForTry(guildId, userId, points);
+};
+
+const getTopPlayers = (guildId, limit = 10) => {
+    const players = Object.entries(ranking[guildId] || {}).map(([userId, points]) => ({ userId, points }));
+    return players.sort((a, b) => b.points - a.points).slice(0, limit);
+};
+
+
 export {
     addNewGame,
     getRunningGames,
     checkGameStarted,
     recordWinner,
     deleteEntry,
+    addPointsForTry,
+    addPointsForWin,
+    getTopPlayers
 };

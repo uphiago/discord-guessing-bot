@@ -110,25 +110,12 @@ const embedBuilder = {
 
     failGuessEmbed: () => {
         return new EmbedBuilder()
-            .setColor('#00FF00')
+            .setColor('#FF5555')
             .setTitle('Miss!')
             .setDescription("Try again!")
             .setFooter({ text: 'Keep playing!' })
             .setTimestamp();
     },
-
-
-    // genericResponseEmbed: (title, description, color = '#0099ff') => {
-    //     return new MessageEmbed()
-    //         .setColor(color)
-    //         .setTitle(title)
-    //         .setDescription(description)
-    //         .setFooter({ text: 'Try again!' })
-    //         .setTimestamp();
-    // },
-
-    //////////////////////////////////////////////////////////
-
 
     guessSizeErrorEmbed: () => {
         return new EmbedBuilder()
