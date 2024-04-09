@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { startGame } from "./commands/admin/startGame.js";
 import { listRunningGames } from "./commands/admin/listRunning.js";
 import { showWinners } from "./commands/admin/winners.js";
-import wordToEnd from "./commands/admin/endGame.js"
+import { wordToEnd } from "./commands/admin/endGame.js"
 import guessCommand from "./commands/game/guessSlash.js";
 import embedBuilder from "./datastore/embedBuilder.js";
 import { displayTopPlayers } from "./datastore/userRanking.js";
