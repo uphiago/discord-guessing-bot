@@ -52,11 +52,14 @@ const embedBuilder = {
             .setTitle('Word Gessing Bot')
             .setDescription('How the commands work?')
             .addFields(
-                { name: '$startgame <word>', value: 'Starts a new game.', inline: false },
+                { name: '$startgame "word" <1-500>', value: 'Starts a new game and how much winners this word can get.', inline: false },
                 { name: '$endgame <word>', value: 'Finish the game.', inline: false },
                 { name: '$help', value: 'Open settings help.', inline: false },
                 { name: '$running', value: 'Show all games running.', inline: false },
                 { name: '$winners <word>', value: 'Show the winners.', inline: false },
+                { name: '$guesstry <1-999>', value: 'How much points each try.', inline: false },
+                { name: '$guesswin <1-999>', value: 'How much points to winner.', inline: false },
+                { name: '$ranking', value: 'Show the top 10.', inline: false },
                 { name: '/guess <word>', value: 'Try to guess the word. **Players.**', inline: false }
             )
             .setFooter({ text: 'Enjoy it!' })
