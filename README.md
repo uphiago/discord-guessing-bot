@@ -1,4 +1,3 @@
-How the commands work?  
 
 $startgame <word> - Starts a new game.  
 $endgame <word> - Finish the game.  
